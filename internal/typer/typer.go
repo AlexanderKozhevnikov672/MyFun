@@ -36,7 +36,7 @@ func (tm *TyperModel) ViewScore() string {
 
 	accuracy := tm.correct * 100 / sum
 	spent := tm.end.Sub(tm.start).Seconds()
-	score := (tm.correct - tm.wrong - tm.backspace) / int(spent)
+	score := (tm.correct - tm.wrong - tm.backspace) / int(math.Ceil(spent))
 
 	return fmt.Sprintf("correct: %d\nwrong: %d\naccuracy: %d%%\nscore: %d",
 		tm.correct, tm.wrong, accuracy, score,
@@ -92,7 +92,7 @@ func (tm *TyperModel) ViewText() (s string) {
 const (
 	typerTemplateName = "TyperTemplate"
 	typerTemplate     = `
-{{.ViewTime}}
+Time left: {{printf "%2d" .ViewTime}}
 
 {{.ViewText}}
 `
